@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>RSA</title>
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            function copyToClipboard(text) {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+            }
+
+            // Обработчики событий для кнопок "Скопировать"
+            const copyPublicKeyBtn = document.getElementById('copy-public-key');
+            const copySecretKeyBtn = document.getElementById('copy-secret-key');
+
+            copyPublicKeyBtn.addEventListener('click', function () {
+                copyToClipboard('{{ public_key }}');
+                copyPublicKeyBtn.style.backgroundColor = 'green';  // Изменение цвета кнопки
+                setTimeout(() => {
+                    copyPublicKeyBtn.style.backgroundColor = '';  // Возвращение исходного цвета через 1 секунду
+                }, 1000);
+            });
+
+            copySecretKeyBtn.addEventListener('click', function () {
+                copyToClipboard('{{ secret_key }}');
+                copySecretKeyBtn.style.backgroundColor = 'green';  // Изменение цвета кнопки
+                setTimeout(() => {
+                    copySecretKeyBtn.style.backgroundColor = '';  // Возвращение исходного цвета через 1 секунду
+                }, 1000);
+            });
+        });
+    </script>
+    <style>
+        tbody, td, tfoot, th, thead, tr {
+            padding-bottom: 25px !important;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="row" style="margin-top: 40px;">
+            <div class="col text-center"><a href="/" class="btn btn-primary" data-bss-hover-animate="pulse" type="button" style="background: rgba(255,255,255,0.48);color: rgb(12,110,253);" data-bs-target="index.html">Зашифровать</a></div>
+            <div class="col text-center"><a href="/decode" class="btn btn-primary" data-bss-hover-animate="pulse" type="button" style="color: rgb(12,110,253);background: var(--bs-btn-disabled-color);" data-bs-target="decode.html">Расшифровать</a></div>
+        </div>
+    </header>
+    <section class="d-lg-flex justify-content-lg-center" style="margin-top: 17%;">
+        <div class="container text-center d-lg-flex">
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <h1 style="margin-bottom: 37px;">RSA </h1>
+                    </div>
+                </div>
+
+                <div class="row" style="width: 100%;">
+                    <table style="mx-auto text-start result-table">
+                            <tr style=" padding-bottom: 25px !important;">
+                                <td style="width: 50%">
+                                    <b>Открытый ключ</b>
+                                </td>
+                                <td style="width: 50%">
+                                    <button id="copy-public-key" class="btn btn-primary">Скопировать</button>
+                                </td>
+                            </tr>
+                            <tr style=" padding-bottom: 25px !important;">
+                                <td style="width: 50%">
+                                    <b>Закрытый ключ</b>
+                                </td>
+                                <td style="width: 50%">
+                                    <button id="copy-secret-key" class="btn btn-primary">Скопировать</button>
+                                </td>
+                            </tr>
+                            <tr style=" padding-bottom: 25px !important;">
+                                <td style="width: 50%">
+                                    <b>Файл</b>
+                                </td>
+                                <td style="width: 50%">
+                                    {{ filename }}
+                                </td>
+                            </tr>
+                            <tr style=" padding-bottom: 25px !important;">
+                                <td style="width: 50%">
+                                    <b>Ссылка</b>
+                                </td>
+                                <td style="width: 50%">
+                                    <a href="{{ url_for('download', filename=download) }}" class="btn btn-primary">Скачать</a>
+                                </td>
+                            </tr>
+                        </table>
+                    <div class="col">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+    <section>
+
+    </section>
+    <script src="static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="static/js/bs-init.js"></script>
+</body>
+
+</html>
